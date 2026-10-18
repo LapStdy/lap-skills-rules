@@ -66,6 +66,26 @@ Copy-Item -Recurse -Force ".\lap-function-quality\skills\*" "$HOME\.dsh\skills\"
 
 **更新**：`git pull` 后重新执行第 2 步覆盖旧副本。**卸载**：删除 `~/.dsh/skills/` 下对应目录即可。
 
+## 怎么下载
+
+- 只要文件：本页右上 **Code → Download ZIP**。
+- 换电脑后接着用：`git clone https://github.com/LapStdy/lap-function-quality.git`（私有仓需要登录；也可用 SSH `git@github.com:LapStdy/lap-function-quality.git`，新电脑先把公钥加到 GitHub）。
+- 只想要某一个技能：进 `skills/<名字>/` 复制整个目录到 `~/.dsh/skills/`。
+
+## 新项目开工（一键）
+
+对新项目说一句：
+
+> 按 https://github.com/LapStdy/lap-function-quality 的开工说明，给这个项目装规矩。
+
+AI 会生成 `AGENTS.md`、装好检查器，并跑一次自检。也可以手动：
+
+```bash
+python tools/bootstrap.py <项目目录>
+```
+
+装完的效果：新项目一开会话就带着交付物硬规则，交付前自动跑检查。
+
 ## 依赖与降级
 
 - 技能与检查器都**零第三方运行时依赖**，只用 Python 标准库。
@@ -75,14 +95,15 @@ Copy-Item -Recurse -Force ".\lap-function-quality\skills\*" "$HOME\.dsh\skills\"
 ## 目录
 
 ```text
-rules/     # 规范全文：交付物通道、项目结构
-tools/     # 零依赖检查器 check_artifacts.py
-skills/    # 可安装的三款技能
+rules/       # 规范全文：交付物通道、项目结构
+tools/       # check_artifacts.py（检查器）+ bootstrap.py（一键开工）
+templates/   # 新项目用的 AGENTS.md 模板
+skills/      # 可安装的三款技能
 ```
 
 ## 版本
 
-当前 `v0.2.0`；版本记录见 [CHANGELOG.md](CHANGELOG.md)。
+当前 `v0.2.1`；版本记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 一句话
 
