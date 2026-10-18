@@ -1,4 +1,6 @@
-# lap-skills
+# lap-function-quality
+
+函数质量技能包：函数规范（`function-spec`）→ 攻击测试（`function-attack`）→ 性能取证（`perf-evidence`）。
 
 面向 **DeepSeek Harness (DSH)** 的函数质量技能包：把「函数规范 → 攻击测试 → 性能取证」做成三款可安装、零第三方运行时依赖的技能。
 
@@ -20,8 +22,8 @@ DSH 的用户级技能目录是 `~/.dsh/skills/<name>/SKILL.md`（Windows 即 `C
 
 ```bash
 # 1) 克隆仓库
-git clone https://github.com/LapStdy/lap-skills.git
-cd lap-skills
+git clone https://github.com/LapStdy/lap-function-quality.git
+cd lap-function-quality
 
 # 2) 复制到 DSH 技能目录（macOS / Linux / Git Bash）
 mkdir -p ~/.dsh/skills
@@ -31,14 +33,14 @@ cp -r skills/* ~/.dsh/skills/
 Windows PowerShell：
 
 ```powershell
-git clone https://github.com/LapStdy/lap-skills.git
+git clone https://github.com/LapStdy/lap-function-quality.git
 New-Item -ItemType Directory -Force "$HOME\.dsh\skills" | Out-Null
-Copy-Item -Recurse -Force ".\lap-skills\skills\*" "$HOME\.dsh\skills\"
+Copy-Item -Recurse -Force ".\lap-function-quality\skills\*" "$HOME\.dsh\skills\"
 ```
 
 装完确认三个目录都在：`~/.dsh/skills/function-spec/`、`function-attack/`、`perf-evidence/`。DSH 下次会话即可按 `description` 自动触发；也可手动加载对应技能。
 
-> 仓库可见性以 GitHub Settings 为准：若为私有，新设备需先登录 GitHub（HTTPS 会弹授权），或改用 SSH：`git clone git@github.com:LapStdy/lap-skills.git`（先把本机公钥加到 GitHub）。公开后无需登录即可下载。
+> 仓库可见性以 GitHub Settings 为准：若为私有，新设备需先登录 GitHub（HTTPS 会弹授权），或改用 SSH：`git clone git@github.com:LapStdy/lap-function-quality.git`（先把本机公钥加到 GitHub）。公开后无需登录即可下载。
 
 **更新**：`git pull` 后重新执行第 2 步覆盖旧副本。**卸载**：删除 `~/.dsh/skills/` 下对应目录即可。
 
