@@ -1,6 +1,6 @@
 # LapStdy 工作规范与技能总库
 
-本仓库放两类东西：**规矩**（AI 必须遵守）和**技能**（AI 可安装）。仓库名 `lap-function-quality`，内容涵盖全部工作资产，找东西从本页开始。
+本仓库放两类东西：**规矩**（AI 必须遵守）和**技能**（AI 可安装）。仓库名 `lap-skills-rules`，内容涵盖全部工作资产，找东西从本页开始。
 
 ## 一页看懂
 
@@ -44,8 +44,8 @@ DSH 的用户级技能目录是 `~/.dsh/skills/<name>/SKILL.md`（Windows 即 `C
 
 ```bash
 # 1) 克隆仓库
-git clone https://github.com/LapStdy/lap-function-quality.git
-cd lap-function-quality
+git clone https://github.com/LapStdy/lap-skills-rules.git
+cd lap-skills-rules
 
 # 2) 复制到 DSH 技能目录（macOS / Linux / Git Bash）
 mkdir -p ~/.dsh/skills
@@ -55,28 +55,28 @@ cp -r skills/* ~/.dsh/skills/
 Windows PowerShell：
 
 ```powershell
-git clone https://github.com/LapStdy/lap-function-quality.git
+git clone https://github.com/LapStdy/lap-skills-rules.git
 New-Item -ItemType Directory -Force "$HOME\.dsh\skills" | Out-Null
-Copy-Item -Recurse -Force ".\lap-function-quality\skills\*" "$HOME\.dsh\skills\"
+Copy-Item -Recurse -Force ".\lap-skills-rules\skills\*" "$HOME\.dsh\skills\"
 ```
 
 装完确认三个目录都在：`~/.dsh/skills/function-spec/`、`function-attack/`、`perf-evidence/`。DSH 下次会话即可按 `description` 自动触发；也可手动加载对应技能。
 
-> 仓库可见性以 GitHub Settings 为准：若为私有，新设备需先登录 GitHub，或改用 SSH：`git clone git@github.com:LapStdy/lap-function-quality.git`。
+> 仓库可见性以 GitHub Settings 为准：若为私有，新设备需先登录 GitHub，或改用 SSH：`git clone git@github.com:LapStdy/lap-skills-rules.git`。
 
 **更新**：`git pull` 后重新执行第 2 步覆盖旧副本。**卸载**：删除 `~/.dsh/skills/` 下对应目录即可。
 
 ## 怎么下载
 
 - 只要文件：本页右上 **Code → Download ZIP**。
-- 换电脑后接着用：`git clone https://github.com/LapStdy/lap-function-quality.git`（私有仓需要登录；也可用 SSH `git@github.com:LapStdy/lap-function-quality.git`，新电脑先把公钥加到 GitHub）。
+- 换电脑后接着用：`git clone https://github.com/LapStdy/lap-skills-rules.git`（私有仓需要登录；也可用 SSH `git@github.com:LapStdy/lap-skills-rules.git`，新电脑先把公钥加到 GitHub）。
 - 只想要某一个技能：进 `skills/<名字>/` 复制整个目录到 `~/.dsh/skills/`。
 
 ## 新项目开工（一键）
 
 对新项目说一句：
 
-> 按 https://github.com/LapStdy/lap-function-quality 的开工说明，给这个项目装规矩。
+> 按 https://github.com/LapStdy/lap-skills-rules 的开工说明，给这个项目装规矩。
 
 AI 会生成 `AGENTS.md`、装好检查器，并跑一次自检。也可以手动：
 
@@ -103,7 +103,7 @@ skills/      # 可安装的三款技能
 
 ## 版本
 
-当前 `v0.2.1`；版本记录见 [CHANGELOG.md](CHANGELOG.md)。
+当前 `v0.2.2`；版本记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 一句话
 

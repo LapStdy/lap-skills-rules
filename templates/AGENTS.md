@@ -12,7 +12,7 @@
 4. 代码注释只写「为什么」，不写「改了什么」；改了什么由版本历史回答。
 5. 本来就记历史的东西豁免：CHANGELOG、交接账本、archive/、迁移说明、测试冻结证据。
 
-规矩全文与检查器：GitHub `LapStdy/lap-function-quality` 的 `rules/` 与 `tools/`；本文件是操作版，两者冲突以仓库为准。
+规矩全文与检查器：GitHub `LapStdy/lap-skills-rules` 的 `rules/` 与 `tools/`；本文件是操作版，两者冲突以仓库为准。
 
 ## 收尾自检（每次交付文件后、回复之前）
 
