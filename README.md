@@ -38,6 +38,8 @@ Copy-Item -Recurse -Force ".\lap-skills\skills\*" "$HOME\.dsh\skills\"
 
 装完确认三个目录都在：`~/.dsh/skills/function-spec/`、`function-attack/`、`perf-evidence/`。DSH 下次会话即可按 `description` 自动触发；也可手动加载对应技能。
 
+> 仓库可见性以 GitHub Settings 为准：若为私有，新设备需先登录 GitHub（HTTPS 会弹授权），或改用 SSH：`git clone git@github.com:LapStdy/lap-skills.git`（先把本机公钥加到 GitHub）。公开后无需登录即可下载。
+
 **更新**：`git pull` 后重新执行第 2 步覆盖旧副本。**卸载**：删除 `~/.dsh/skills/` 下对应目录即可。
 
 ## 依赖与降级
