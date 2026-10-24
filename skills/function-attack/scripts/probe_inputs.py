@@ -77,11 +77,16 @@ class Outcome:
 
 def load_module(path: Path) -> ModuleType:
     """按文件路径加载模块。"""
-    spec = importlib.util.spec_from_file_location(path.stem, path)
+    module_name = "probe_inputs_" + path.stem
+    spec = importlib.util.spec_from_file_location(module_name, path)
     if spec is None or spec.loader is None:
         raise ValueError("无法加载模块：" + str(path))
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    sys.modules[module_name] = module
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.modules.pop(module_name, None)
     return module
 
 

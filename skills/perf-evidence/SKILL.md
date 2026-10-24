@@ -1,8 +1,8 @@
 ---
 name: perf-evidence
-description: "性能取证与回归基线：复现→基线（≥5 次，median/IQR）→复杂度/热点→1–3 个假设→最小改动→正确性四件套→benchmark 前后对比→门禁建议。用于「这个函数慢」「怎么优化」「为什么卡」「复杂度是多少」「加个 benchmark 防止性能回归」「profile 热点」「提速」。不负责已知 bug 根因定位（用 diagnosing-bugs）、PR 级评审（用 code-review）、架构级性能设计（用 codebase-design）、安全小改动自动修（用 brooks-sweep）。"
+description: "性能取证与回归基线：复现→基线（≥5 次，median/IQR）→复杂度/热点→1–3 个假设→最小改动→正确性四件套→benchmark 前后对比→门禁建议。用于「这个函数慢」「怎么优化」「为什么卡」「复杂度是多少」「加个 benchmark 防止性能回归」「profile 热点」「提速」。不负责已知 bug 根因定位（用 diagnosing-bugs）、PR 级评审（用 code-review）、架构级性能设计（用 codebase-design）、安全小改动自动修（用 brooks-sweep）、『该不该做/有没有更优解』（用 first-principles）。"
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   phase: "2D"
 ---
 
@@ -22,6 +22,7 @@ metadata:
 | 架构级性能：缓存策略、并发模型、模块切分 | `codebase-design`（本技能只做函数级取证，联合时各出各的产物） |
 | 批量安全小改动自动修 | `brooks-sweep` |
 | 单个函数怎么写规范、契约、docstring | `function-spec` |
+| 该不该做这次优化、目标与顺序、有没有更优解 | `first-principles`（本技能只对已决定优化的对象取证） |
 
 判据：问「慢多少、贵在哪、改完更快没」→ 本技能；问「为什么坏了/怎么修」→ `diagnosing-bugs`；问「结构/模块怎么切」→ `codebase-design`。命中相邻技能时，一句话写明路由理由与技能 id，随即停止；**输出只含「路由技能 id + 一句理由 + 相邻技能的下一步」**，不展开本技能步骤或产物，也不列举本技能会做什么/不做什么（否定句同样算越界，例如「不做基线/benchmark」也不要写）。
 

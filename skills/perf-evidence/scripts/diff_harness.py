@@ -152,9 +152,11 @@ def load_module(path: Path, tag: str) -> ModuleType:
     added = parent not in sys.path
     if added:
         sys.path.insert(0, parent)
+    sys.modules[module_name] = module
     try:
         spec.loader.exec_module(module)
     finally:
+        sys.modules.pop(module_name, None)
         if added:
             try:
                 sys.path.remove(parent)

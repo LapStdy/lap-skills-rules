@@ -51,7 +51,9 @@ CHANGELOG、交接账本、`archive/`、迁移说明、测试冻结证据——�
 python tools/check_artifacts.py <目录>
 ```
 
-- 退出码 0 = 干净；1 = 有高风险。
+- `PASS` + 退出码 0 = 干净。
+- `WARN` + 退出码 0 = 只有中/低风险，不阻断，但交付前要清零；纳入门禁时加 `--strict`。
+- `FAIL` + 退出码 1 = 有高风险，必须改。
 - 规则抓词不抓意思：会误报也会漏报，它是兜底，不替代判断。
 - 真误报：该行加 `artifact-check: ignore`。
 

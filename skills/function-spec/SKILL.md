@@ -1,8 +1,8 @@
 ---
 name: function-spec
-description: "单个函数或小 diff 的函数级规范检查与修复：命名、参数、单一职责、纯度与副作用、错误契约（返回空值还是抛异常）、docstring、类型提示、长度与复杂度。用于「这个函数怎么写」「帮我按规范改」「参数太多」「职责不清」「函数太长」「返回 None 还是抛异常」。不做架构分层与需求符合性。"
+description: "单个函数或小 diff 的函数级规范检查与修复：命名、参数、单一职责、纯度与副作用、错误契约（返回空值还是抛异常）、docstring、类型提示、长度与复杂度。用于「按规范审一下这个函数」「审函数」「帮我按规范改」「契约写清楚」「29 条规则」「参数太多」「职责不清」「函数太长」「返回 None 还是抛异常」。不做架构分层与需求符合性，不判断方案取舍与更优解（用 first-principles）。"
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   phase: "2B"
 ---
 
@@ -20,6 +20,7 @@ metadata:
 | 模块边界、分层、循环依赖 | `brooks-audit` / `codebase-design` |
 | 0–100 评分、腐化归类、书单式论证 | `brooks-review` |
 | 从零写测试驱动实现；测试腐化/脆测试 | `tdd`；`brooks-test` |
+| 该不该写/改这个函数、方案取舍、有没有更优解 | `first-principles` |
 | 性能基线、热点、benchmark、防回归 | `perf-evidence` |
 
 判据：用户问「这个函数怎么改」→ 本技能；问「这次改动对不对/需求实现了没」→ `code-review`；问「为什么报错」→ `diagnosing-bugs`。
