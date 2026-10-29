@@ -14,7 +14,7 @@
 
 ## 本仓库的规矩
 
-- 规范全文在 `rules/`：交付物通道、项目结构、技能规范；`AGENTS.md` 只是操作版。
+- 规范全文在 `rules/`：交付物通道、改动范围、项目结构、技能规范；`AGENTS.md` 只是操作版。
 - 技能写法与安装见 `rules/skills.md`；新技能先按 `evals/<name>/` 做最小评测。
 - 改技能：先改 `skills/`，提交后再 `python tools/install_skills.py`；不反向修改安装副本。
 
