@@ -10,7 +10,7 @@
 | 改动范围 | 每行改动指向本次请求；范围外的问题进 `TASKS.md` / `DEBT.md` | `rules/change-scope.md` | 写代码、改文件、评审 diff；说「只改该改的」 |
 | 项目结构 | 顶层放什么、根文件只许哪些、两个 profile | `rules/project-structure.md` | 新项目开工、新建或移动目录 |
 | 技能规范 | 技能怎么写、怎么装、怎么更新 | `rules/skills.md` | 写技能、改装技能、换电脑 |
-| 四款技能 | 方案寻优 → 函数规范 → 攻击测试 → 性能取证 | `skills/` | 说「有没有更优解」「审函数」「找 bug」「要性能证据」 |
+| 五款技能 | 方案寻优 → 函数规范 → 攻击测试 → 性能取证 → ZCode 自动工作流 | `skills/` | 说「有没有更优解」「审函数」「找 bug」「要性能证据」「派卡给 ZCode」 |
 | 交付物检查器 | 自动扫不该写进交付物的字 | `tools/check_artifacts.py` | 交付前 |
 | 技能安装器 | 把仓库技能同步到 `~/.dsh/skills` | `tools/install_skills.py` | 安装、更新、比对漂移 |
 
@@ -43,8 +43,9 @@ python tools/check_artifacts.py --selftest    # 内置样例自检
 | `function-spec` | 函数规范：29 条规则、契约（输入/输出/错误/副作用）、逐函数审计 | 「按规范审一下这个函数」「契约写清楚」「29 条规则」 |
 | `function-attack` | 函数攻击：边界/错误契约、属性测试、抽样变异、按需 fuzz/差分，产出最小反例 | 「找未知 bug」「测试没测到」「属性测试」「变异测试」「fuzz」 |
 | `perf-evidence` | 性能取证：基线、复杂度、cProfile 热点、最小改动、正确性四件套、benchmark 回归门禁 | 「这个函数慢」「怎么优化」「复杂度是多少」「加个 benchmark 防回归」 |
+| `zcode-auto-workflow` | ZCode 专用自动工作流：写卡 → 派卡 → 盯到终态 → 复核 → 串行门禁 → 合并 → 清理 → 再派，含额度检查与收尾 | 「派卡给 ZCode」「盯 ZCode 到早上」「夜间自动推进」「每批两张卡」「10 点看额度」 |
 
-技能互斥路由：先判断「该不该做/有没有更优解」用 `first-principles`；决定做之后，函数怎么写用 `function-spec`、找未知缺陷用 `function-attack`、性能值不值得改用 `perf-evidence`。已知 bug 根因用 `diagnosing-bugs`，从零 TDD 用 `tdd`，PR 评审用 `code-review`，架构问题用 `codebase-design`（这些是 DSH 自带/其他来源技能，不在本仓库）。
+技能互斥路由：先判断「该不该做/有没有更优解」用 `first-principles`；决定做之后，函数怎么写用 `function-spec`、找未知缺陷用 `function-attack`、性能值不值得改用 `perf-evidence`；要按任务卡循环推进并用 ZCode 执行用 `zcode-auto-workflow`。已知 bug 根因用 `diagnosing-bugs`，从零 TDD 用 `tdd`，PR 评审用 `code-review`，架构问题用 `codebase-design`（这些是 DSH 自带/其他来源技能，不在本仓库）。
 
 `first-principles` 的最小评测见 `evals/first-principles/`：两个 case + 8 条机械判据，可重跑。
 
@@ -67,7 +68,7 @@ python tools/install_skills.py --check
 - 只装某一个：`python tools/install_skills.py first-principles`
 - 换安装目录：`python tools/install_skills.py --dest <目录>`
 - 卸载：`python tools/install_skills.py --uninstall <名字>`
-- 装完确认四个目录都在：`~/.dsh/skills/first-principles/`、`function-spec/`、`function-attack/`、`perf-evidence/`。DSH 下次会话即可按 `description` 自动触发，也可手动调用对应技能。
+- 装完确认五个目录都在：`~/.dsh/skills/first-principles/`、`function-spec/`、`function-attack/`、`perf-evidence/`、`zcode-auto-workflow/`。DSH 下次会话即可按 `description` 自动触发，也可手动调用对应技能。
 - 手写复制也可以：把 `skills/<name>/` 整个目录复制到 `~/.dsh/skills/`；但更新时请用安装器，避免漏文件。
 
 > 仓库可见性以 GitHub Settings 为准：若为私有，新设备需先登录 GitHub，或改用 SSH：`git clone git@github.com:LapStdy/lap-skills-rules.git`。
@@ -106,14 +107,14 @@ python tools/bootstrap.py <项目目录>
 rules/       # 规范全文：交付物通道、项目结构、技能规范
 tools/       # check_artifacts.py（检查器）+ bootstrap.py（一键开工）+ install_skills.py（技能安装）
 templates/   # 新项目用的 AGENTS.md 模板
-skills/      # 可安装的四款技能
+skills/      # 可安装的五款技能
 evals/       # 技能最小评测（当前含 first-principles 两个 case）
 docs/        # ADR 与仓库稳定文档
 ```
 
 ## 版本
 
-当前 `v0.3.0`；版本记录见 [CHANGELOG.md](CHANGELOG.md)。
+当前 `v0.5.0`；版本记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 一句话
 
