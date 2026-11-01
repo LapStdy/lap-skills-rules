@@ -1,8 +1,8 @@
 ---
 name: perf-evidence
-description: "性能取证与回归基线：复现→基线（≥5 次，median/IQR）→复杂度/热点→1–3 个假设→最小改动→正确性四件套→benchmark 前后对比→门禁建议。用于「这个函数慢」「怎么优化」「为什么卡」「复杂度是多少」「加个 benchmark 防止性能回归」「profile 热点」「提速」。不负责已知 bug 根因定位（用 diagnosing-bugs）、PR 级评审（用 code-review）、架构级性能设计（用 codebase-design）、安全小改动自动修（用 brooks-sweep）、『该不该做/有没有更优解』（用 first-principles）。"
+description: "性能取证与回归基线：复现→基线（≥5 次 median/IQR）→复杂度/热点→1–3 个假设→最小改动→正确性四件套→benchmark 前后对比→门禁建议。用于「这个函数慢」「怎么优化」「为什么卡（函数/接口级）」「复杂度多少」「加 benchmark 防回归」「profile 热点」「提速」。不负责已知 bug 根因（diagnosing-bugs）、PR 评审（code-review）、架构级性能（codebase-design）、该不该做（first-principles）；前端动效掉帧用 animation-performance。"
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
   phase: "2D"
 ---
 

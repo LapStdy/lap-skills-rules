@@ -1,5 +1,12 @@
 # 变更记录
 
+## v0.7.1 — 2026-11-01
+
+- 五个技能的 `description` 按 `rules/skills.md`（≤500 字符、触发词前置、相邻技能一行路由）重写，去掉超长描述与自我介绍式措辞：`first-principles` 305→197、`perf-evidence` 289→237、`function-attack` 243→194、`function-spec` 201→167、`memory-curation` 124→115。
+- 触发词补到用户口语侧（「方案评估」「方向对不对」「加 benchmark 防回归」「返回 None 还是抛异常」「记忆太乱」等），路由边界改写成「不负责 X（技能名）」，与 `rules/skills.md` 的「同一触发词只归一个技能」对齐。
+- 版本：`first-principles` 0.1.1、`function-attack`/`function-spec`/`perf-evidence` 0.2.1、`memory-curation` 1.0.1。
+- `skills/memory-curation` 首次纳入版本库：此前只存在于安装副本，仓库侧无历史；本次按仓库→安装单向流程补齐。
+
 ## v0.7.0 — 2026-11-01
 
 - `skills/zcode-auto-workflow` 升 2.1.0：把「派卡」与「接续」拆成两条流程。`references/session-handoff.md` 首屏给出对照表（要达成 / 应用 / 点哪里 / 完成后必须看到）、两个应用的三处硬区别与误点后果；判据压成一句「卡永远在 ZCode，会话永远在 DSH」。补会话命名约定 `接续#N · 项目 · 日期`。

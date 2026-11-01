@@ -1,8 +1,8 @@
 ---
 name: function-attack
-description: "函数级正向属性 + 反向攻击：边界/非法输入 → 错误契约 → 属性（不变量/往返/幂等/oracle/蜕变）→ 抽样变异 → 按需 fuzz/差分，产出最小反例与存活变异体。用于「攻击这个函数」「找未知 bug」「测试没测到」「属性测试」「变异测试」「fuzz 一下」「边界测试」。不负责已知 bug 根因定位（用 diagnosing-bugs）、从零 TDD（用 tdd）、测试腐化静态体检（用 brooks-test）、方案取舍与更优解（用 first-principles）。"
+description: "函数级正向属性 + 反向攻击：边界/非法输入→错误契约→属性（不变量/往返/幂等/oracle/蜕变）→抽样变异→按需 fuzz/差分，产出最小反例与存活变异体。用于「攻击这个函数」「找未知 bug」「测试没测到」「属性测试」「变异测试」「fuzz」「边界测试」。不负责已知 bug 根因（diagnosing-bugs）、从零 TDD（tdd）、测试腐化体检（brooks-test）。"
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
   phase: "2C"
 ---
 
