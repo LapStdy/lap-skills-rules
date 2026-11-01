@@ -6,7 +6,7 @@
 |---|---|---|
 | 项目 | lap-backstop | 通用调度与监督平台 |
 | 仓库路径 | `D:\lap-backstop` | 主工作区，分支 `main` |
-| 门禁命令 | `python scripts/gate.py` | 串行跑，只在主控侧跑 |
+| 门禁命令 | `python scripts/gate.py` | 串行跑，只在主控侧跑；合并后是否再跑按树相等判据（见 SKILL「门禁跑几次」） |
 | 交付物检查 | `python scripts/check_artifacts.py .` | 交付前必跑，回复里报一行 |
 | 开工必读 | `AGENTS.md`、`docs/10-工程宪法.md`、`docs/11-代码规约.md` | 卡文里写「按 profile 的开工必读」即可 |
 | 待办清单 | `TASKS.md`（待做）、`DEBT.md`（欠账） | 卡内不改，合并后由主控改 |
