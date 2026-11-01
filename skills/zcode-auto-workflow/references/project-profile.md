@@ -13,6 +13,7 @@
 | worktree 前缀 | `D:\lap-backstop-card<N>` | 与主目录同级 |
 | 分支前缀 | `feat/card<N>-<slug>` | 一卡一分支 |
 | 卡文与脚本目录 | `D:\lap-work\.zcode\inbox\`、`D:\lap-work\` | **放在仓库外**：卡文里会出现「上一版本」「历史」这类词，被交付物检查当成改动史误报 |
+| 回执目录 | `D:\lap-work\.zcode\outbox\` | 文件名 `HANDOFF-card<N>-<码>.md`：仓库外、worktree 删除后仍在，主控直接读；不参与交付物检查 |
 
 ## 执行者（ZCode）参数
 
