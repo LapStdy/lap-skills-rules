@@ -1,5 +1,13 @@
 # 变更记录
 
+## v0.7.0 — 2026-11-01
+
+- `skills/zcode-auto-workflow` 升 2.1.0：把「派卡」与「接续」拆成两条流程。`references/session-handoff.md` 首屏给出对照表（要达成 / 应用 / 点哪里 / 完成后必须看到）、两个应用的三处硬区别与误点后果；判据压成一句「卡永远在 ZCode，会话永远在 DSH」。补会话命名约定 `接续#N · 项目 · 日期`。
+- `SKILL.md`：`description` 与路由表补「接续」「换个会话接着盯」「上下文满了」，并写明两条流程分属两个应用；第 0 步 ZCode 侧栏术语改为「任务列表 / 项目」；停止规则补两条串台借口；完成自检补接续项；资源清单同步。
+- `references/zcode-ui.md`、`references/boundary-facts.md`：各自标明只讲 ZCode 窗口内的点击，补两个应用侧栏的对照判据；ZCode 折叠项术语由「会话 / 工作区」改为「任务 / 项目」。
+- `references/project-profile.md`：会话级限制点名「DSH 会话」。
+- `evals/zcode-auto-workflow`：机械判据补第 9 条（接续走 DSH 新会话、派卡走 ZCode 新建任务，不串台）。
+
 ## v0.6.0 — 2026-11-01
 
 - `skills/zcode-auto-workflow` 升 2.0.0，按 2026-11-01 首个完整值守夜的事实基座重排：主流程由 8 步压到 6 步；唤醒改为事件优先（watcher 四条件退出），定时只留给到点收尾与降级，并加「一夜空转超 2 次即删定时」判据；新增 watcher 基线盲区硬规则（启动前先看状态，已无在跑任务就直接处理）。
