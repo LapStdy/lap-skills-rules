@@ -116,6 +116,10 @@ structure-allow.txt # 资产仓结构上限允许清单（只缩不涨）
 - 可选工具缺失时技能显式降级并写明少了什么证据：`hypothesis`、`mutmut`、`pytest-benchmark`、`py-spy`、`asv` 都不是必需。
 - `ruff`、`mypy`、`pytest`、`import-linter` 属项目栈；门禁里必需项缺工具按失败处理，可选项才允许跳过。
 
+## 许可证
+
+[MIT](LICENSE)：可自由使用、修改、分发与再许可，保留版权与许可声明。
+
 ## 版本
 
 当前版本见 [CHANGELOG.md](CHANGELOG.md)；本页不写版本号，版本只有一处真源。

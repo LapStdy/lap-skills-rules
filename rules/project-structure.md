@@ -71,7 +71,7 @@
 
 ```text
 <资产仓根>\
-├─ AGENTS.md / README.md / CHANGELOG.md / .gitignore / .gitattributes
+├─ AGENTS.md / README.md / CHANGELOG.md / LICENSE / .gitignore / .gitattributes
 ├─ rules/               # 规范全文（唯一真源）
 ├─ tools/               # 检查器、安装器、一键开工（零依赖）
 ├─ templates/           # 新项目模板
@@ -84,7 +84,7 @@
 
 ## 根文件
 
-必需：`README.md`（总入口）、`AGENTS.md`（常驻硬约束）、`.gitignore`。
+必需：`README.md`（总入口）、`AGENTS.md`（常驻硬约束）、`.gitignore`；对外公开的仓库另需 `LICENSE`（不含版权声明的公开仓默认保留所有权利）。
 
 按需：`pyproject.toml`、`requirements*.txt`、`*.lock`、`.python-version`、`.importlinter`、`.gitattributes`、`structure-allow.txt`；说明类只允许 `TASKS.md`、`DEBT.md`、`CHANGELOG.md`。
 
