@@ -14,7 +14,7 @@
 - `tools/bootstrap.py` 重写安装内容：两个检查器 + 门禁骨架 + 四段 `AGENTS.md`；`--check` 比对三类文件与三个章节的漂移。
 - `templates/AGENTS.md` 增「完成判据」与「账本」两段。
 - 新增技能 `skills/project-gate`（1.0.0）与评测 `evals/project-gate`（10 条机械判据）。
-- `skills/zcode-auto-workflow` 升 2.8.0：卡文必查由九项升**十项**（新增「用例不打掉宿主」）；复核明确「执行者自述不算证据，主控亲自串行跑全量门禁」；回执第 7 项定夺项合并前必须答复；门禁假红补「用例把宿主打掉」一类；`references/boundary-facts.md` 工程侧边界由三条升四条；评测判据由 15 条升 18 条。
+- `skills/zcode-auto-workflow` 升 2.8.0：卡文必查由九项升**十项**（新增「用例不打掉宿主」）；复核明确「执行者自述不算证据，主控亲自串行跑全量门禁」；回执第 7 项定夺项合并前必须答复；门禁假红补「用例把宿主打掉」一类；`references/boundary-facts.md` 工程侧边界由三条升四条；评测判据由 15 条升 18 条，判据 6 的额度检查改为对齐当日额度窗口。
 - `rules/project-structure.md`：机器检查一节改为三个检查器加门禁骨架；根文件按需项加 `structure-allow.txt`。
 - `rules/skills.md`：写作规则补两条——示例命令不得打掉宿主进程；引用规则只指过去、不复制正文。
 - `README.md` 重写：规矩、技能、工具三分，门禁骨架与新项目三步，自检命令，目录；版本号只留 CHANGELOG 一处。
