@@ -86,7 +86,7 @@
 
 必需：`README.md`（总入口）、`AGENTS.md`（常驻硬约束）、`.gitignore`。
 
-按需：`pyproject.toml`、`requirements*.txt`、`*.lock`、`.python-version`、`.importlinter`、`.gitattributes`；说明类只允许 `TASKS.md`、`DEBT.md`、`CHANGELOG.md`。
+按需：`pyproject.toml`、`requirements*.txt`、`*.lock`、`.python-version`、`.importlinter`、`.gitattributes`、`structure-allow.txt`；说明类只允许 `TASKS.md`、`DEBT.md`、`CHANGELOG.md`。
 
 - 工具配置写进 `pyproject.toml` 的 `[tool.*]`，不在根目录散落 `pytest.ini`、`ruff.toml`、`mypy.ini`。
 - 同一信息只有一份：任务进 `TASKS.md`，债务进 `DEBT.md`，变化进 `CHANGELOG.md`，不要三处各写。
@@ -228,8 +228,9 @@
 
 ## 机器检查
 
-- 本仓库随附 `tools/check_artifacts.py`（交付物检查），不随附结构检查器。
-- 结构检查由项目自建并接入项目门禁；检查项至少覆盖：顶层目录/根文件白名单、ADR 命名与编号、`research/` 入口文件、`skills/` 的 `SKILL.md` 与目录名一致、`evals/` 同名约束、`scripts/` 平铺。
+- 本仓库随附三个检查器：`tools/check_artifacts.py`（交付物文字）、`tools/check_structure.py`（函数、参数、类、模块上限，带允许清单）、`tools/check_repo.py`（资产仓自洽：README 索引、技能 frontmatter、评测同名、版本一致）。
+- 项目侧结构检查由项目自建并接入项目门禁（骨架 `templates/gate.py`，装进 `scripts/gate.py`）；检查项至少覆盖：顶层目录/根文件白名单、ADR 命名与编号、`research/` 入口文件、`skills/` 的 `SKILL.md` 与目录名一致、`evals/` 同名约束、`scripts/` 平铺。
+- 交付前一条命令：`python tools/check_repo.py --check-tools`。
 - 退出码 0 = 通过；非 0 = 按输出「改法」处理，不绕过脚本。结构检查不判断内容质量，内容靠评审与交付物检查。
 
 ## 为什么不是别的方案
