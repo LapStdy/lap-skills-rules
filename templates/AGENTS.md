@@ -24,6 +24,21 @@
 
 范围判据与收件箱：GitHub `LapStdy/lap-skills-rules` 的 `rules/change-scope.md`。
 
+## 完成判据（硬规则）
+
+完成 ＝ 项目门禁一条命令退出码 0，不由感觉判定。
+
+1. 门禁：`python scripts/gate.py`，串行跑完全部检查；红了先按 `rules/gates.md` 判假红，能复现的失败才算缺陷。
+2. 交付物：`python scripts/check_artifacts.py .`，回复正文报一行 `交付物检查：PASS（N 个文件）`。
+3. 结构：`python scripts/check_structure.py . --allow structure-allow.txt`，允许清单只缩不涨。
+4. 回复正文报一行 `门禁：PASS（N 项）`；有失败就报失败项与下一步。
+
+## 账本（硬规则）
+
+- 做完的事进提交说明与 `CHANGELOG.md`；没做的事进 `TASKS.md`；绕行与欠账进 `DEBT.md`（编号、影响、归还期限）。
+- 跨会话交接写四段式账本：任务状态 / 目标 / 已试方案与失败原因 / 进度与下一步；每段 ≤5 行，下一步带路径或命令。
+- 细则见 `rules/ledger.md`。
+
 ## 资产仓与技能
 
 - 规范与技能的唯一源是 GitHub `LapStdy/lap-skills-rules`；本机技能装在 `~/.dsh/skills/`，从仓库安装，不手工改安装副本。
@@ -32,9 +47,9 @@
 ## 收尾自检（每次交付文件后、回复之前）
 
 ```bash
-python scripts/check_artifacts.py .
+python scripts/gate.py
 ```
 
-1. 退出码 0 且输出 PASS 才算过；1 就按输出的「为什么 / 改法」改，改不动当场问。WARN（只有中/低风险）不阻断，但交付前同样要清零。
-2. 在回复正文报一行：`交付物检查：PASS（N 个文件）` 或 `交付物检查：FAIL（高 N，已处理 / 待决定）`。
+1. 退出码 0 且输出 `门禁：PASS` 才算过；失败按输出的「改法」处理，改不动当场问。
+2. WARN（只有中/低风险）不阻断，但交付前同样要清零。
 3. 确属误报：该行加 `artifact-check: ignore`；只用于真误报，不要拿它绕规则。

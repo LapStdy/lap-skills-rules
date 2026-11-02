@@ -14,17 +14,18 @@
 
 ## 本仓库的规矩
 
-- 规范全文在 `rules/`：交付物通道、改动范围、项目结构、技能规范；`AGENTS.md` 只是操作版。
-- 技能写法与安装见 `rules/skills.md`；新技能先按 `evals/<name>/` 做最小评测。
-- 改技能：先改 `skills/`，提交后再 `python tools/install_skills.py`；不反向修改安装副本。
+- 规范全文在 `rules/`：交付物通道、改动范围、项目结构、门禁、测试可重复性、Windows 进程红线、账本、技能规范；`AGENTS.md` 只是操作版。
+- 技能写法与安装见 `rules/skills.md`；新技能或大改先按 `evals/<name>/` 做最小评测。
+- 技能里的示例命令不得打掉宿主进程或向共享控制台发信号（见 `rules/windows-process.md`）。
 
 ## 收尾自检
 
 ```bash
-python tools/check_artifacts.py .
+python tools/check_repo.py --check-tools
 python tools/check_artifacts.py --selftest
-python tools/install_skills.py --check
+python tools/check_structure.py --selftest
 ```
 
 - 输出 `PASS` 才算干净；`WARN`（只有中/低风险）不阻断，但交付前清零。
 - `install_skills.py --check` 显示差异时，先提交仓库再重装，不要手改安装副本。
+- `structure-allow.txt` 是既有超限清单：新增条目先记账，清单只缩不涨。

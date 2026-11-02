@@ -1,122 +1,125 @@
 # LapStdy 工作规范与技能总库
 
-本仓库放两类东西：**规矩**（AI 必须遵守）和**技能**（AI 可安装）。仓库名 `lap-skills-rules`，内容涵盖全部工作资产，找东西从本页开始。
+> 一句话：规矩让每次会话都守底线，技能让某类活有工序书，工具把「完成」变成 0/1。
+
+本仓库是规范、技能与检查工具的唯一源。项目侧只留操作版摘要（项目根 `AGENTS.md`），全文在这里；找东西从本页开始。
 
 ## 一页看懂
 
-| 东西 | 一句话 | 位置 | 什么时候用 |
+| 东西 | 管什么 | 位置 | 什么时候用 |
 |---|---|---|---|
-| 交付物通道 | 文档、界面文案、注释只写「此刻为真」 | `rules/delivery.md` | 每次写文件；说「查交付物」 |
-| 改动范围 | 每行改动指向本次请求；范围外的问题进 `TASKS.md` / `DEBT.md` | `rules/change-scope.md` | 写代码、改文件、评审 diff；说「只改该改的」 |
-| 项目结构 | 顶层放什么、根文件只许哪些、两个 profile | `rules/project-structure.md` | 新项目开工、新建或移动目录 |
-| 技能规范 | 技能怎么写、怎么装、怎么更新 | `rules/skills.md` | 写技能、改装技能、换电脑 |
-| 五款技能 | 方案寻优 → 函数规范 → 攻击测试 → 性能取证 → ZCode 自动工作流 | `skills/` | 说「有没有更优解」「审函数」「找 bug」「要性能证据」「派卡给 ZCode」 |
-| 交付物检查器 | 自动扫不该写进交付物的字 | `tools/check_artifacts.py` | 交付前 |
-| 技能安装器 | 把仓库技能同步到 `~/.dsh/skills` | `tools/install_skills.py` | 安装、更新、比对漂移 |
-
-## 规矩怎么落地
-
-1. 每个项目根的 `AGENTS.md` 放十几行硬规则；本仓库 `rules/` 是全文，仓库根也有 `AGENTS.md`。
-2. 交付前跑检查器，输出 `PASS` 才算干净；`WARN` 不阻断但交付前要清零。
-3. 改规矩：先改本仓库，再同步项目 `AGENTS.md`；只改一头会漂。
-4. 技能只从本仓库装；先改仓库，再跑安装器。
-
-## 检查器
-
-```bash
-python tools/check_artifacts.py <目录>
-python tools/check_artifacts.py --strict      # 中/低风险也返回 1
-python tools/check_artifacts.py --selftest    # 内置样例自检
-```
-
-- `PASS` + 退出码 0：干净。
-- `WARN` + 退出码 0：只有中/低风险，不阻断；交付前按「改法」清零，或加 `--strict` 纳入门禁。
-- `FAIL` + 退出码 1：有高风险文字，必须改。
-- 豁免：CHANGELOG、交接账本、`archive/`、迁移说明、测试冻结证据。
-- 真误报：那一行加 `artifact-check: ignore`；整文件误报加 `artifact-check: off`。
+| 交付物通道 | 交付物只写「此刻为真」；过程与历史走别的通道 | `rules/delivery.md` | 每次写文档、文案、注释 |
+| 改动范围 | 每行改动指向本次请求；范围外的问题进收件箱 | `rules/change-scope.md` | 写代码、评审 diff |
+| 项目结构 | 顶层目录与根文件白名单、三种 profile、落位决策表 | `rules/project-structure.md` | 新项目开工、新增目录 |
+| 门禁 | 完成由一条命令判定；合并判据与假红判据 | `rules/gates.md` | 定「做完」、判门禁红 |
+| 测试可重复性 | 假件注入、断言不变量、禁止逐字节比对含时间的产物 | `rules/testing.md` | 写或改测试 |
+| Windows 进程红线 | 存活探测不用信号、强杀先隔离、信号只在主线程 | `rules/windows-process.md` | 起进程、杀进程、测试宿主 |
+| 账本与欠账 | TASKS、DEBT、交接账本三者的分工与字段 | `rules/ledger.md` | 记账、交接、还债 |
+| 技能规范 | 技能怎么写、怎么装、怎么评测 | `rules/skills.md` | 写技能、换电脑 |
 
 ## 技能
 
 | 技能 | 用途 | 典型触发语 |
 |---|---|---|
-| `first-principles` | 第一性原理寻优：还原真实目标与约束 → 事实基座 → 拆假设 → 最小充分系统 → 候选解对比 → 最小验证 | 「有没有更优解」「从第一性原理看」「方向对不对」「该不该做」「值不值得」 |
-| `function-spec` | 函数规范：29 条规则、契约（输入/输出/错误/副作用）、逐函数审计 | 「按规范审一下这个函数」「契约写清楚」「29 条规则」 |
-| `function-attack` | 函数攻击：边界/错误契约、属性测试、抽样变异、按需 fuzz/差分，产出最小反例 | 「找未知 bug」「测试没测到」「属性测试」「变异测试」「fuzz」 |
-| `perf-evidence` | 性能取证：基线、复杂度、cProfile 热点、最小改动、正确性四件套、benchmark 回归门禁 | 「这个函数慢」「怎么优化」「复杂度是多少」「加个 benchmark 防回归」 |
-| `memory-curation` | 记忆分层整理：先问该不该留、按四问判分层（用户级 / 项目笔记 / 技能 / 删除），执行后校验条数与字符数 | 「记忆太乱」「整理记忆」「优化用户级记忆」「清理记忆」「记忆分层」 |
-| `zcode-auto-workflow` | ZCode 专用自动工作流：写卡 → 派卡 → 盯到终态 → 复核 → 串行门禁 → 合并 → 清理 → 再派，含额度检查与收尾 | 「派卡给 ZCode」「盯 ZCode 到早上」「夜间自动推进」「每批两张卡」「10 点看额度」 |
+| `first-principles` | 第一性原理寻优：还原目标与约束、拆假设、最小充分系统、候选对比、最小验证 | 「有没有更优解」「方向对不对」「该不该做」 |
+| `function-spec` | 单个函数的规范检查：命名、参数、职责、错误契约、docstring、长度 | 「按规范审这个函数」「契约写清楚」 |
+| `function-attack` | 函数级攻击：边界、错误契约、属性测试、变异、按需 fuzz | 「找未知 bug」「测试没测到」「变异测试」 |
+| `perf-evidence` | 性能取证：基线、热点、最小改动、正确性四件套、回归门禁 | 「这个函数慢」「加个 benchmark 防回归」 |
+| `project-gate` | 给项目搭一条可机械验证的门禁：选检查、生成 gate.py、造红验证 | 「搭门禁」「一条命令验完」「新项目开工」 |
+| `zcode-auto-workflow` | ZCode 自动工作流：写卡、派卡、盯到终态、复核、串行门禁、合并、清理 | 「派卡」「盯 ZCode 到早上」「无人值守」 |
+| `memory-curation` | 记忆分层整理：该不该留、放哪一层、执行后校验 | 「记忆太乱」「整理记忆」 |
 
-技能互斥路由：先判断「该不该做/有没有更优解」用 `first-principles`；决定做之后，函数怎么写用 `function-spec`、找未知缺陷用 `function-attack`、性能值不值得改用 `perf-evidence`；要按任务卡循环推进并用 ZCode 执行用 `zcode-auto-workflow`。已知 bug 根因用 `diagnosing-bugs`，从零 TDD 用 `tdd`，PR 评审用 `code-review`，架构问题用 `codebase-design`（这些是 DSH 自带/其他来源技能，不在本仓库）。
+路由：先判「该不该做 / 有没有更优解」用 `first-principles`；决定做之后，写代码按 `function-spec`，找未知缺陷按 `function-attack`，性能值不值得按 `perf-evidence`；要落实「完成」的判定用 `project-gate`，要按任务卡循环推进用 `zcode-auto-workflow`，整理记忆用 `memory-curation`。
 
-`first-principles` 的最小评测见 `evals/first-principles/`：两个 case + 8 条机械判据，可重跑。
+## 工具（零第三方依赖，只用标准库）
 
-## 安装技能
+| 工具 | 作用 | 命令 |
+|---|---|---|
+| `tools/check_artifacts.py` | 交付物文字检查：历史渗入、施工字、聊天腔 | `python tools/check_artifacts.py .` |
+| `tools/check_structure.py` | 结构上限：函数 50 行、参数 4 个、类 300 行、模块 500 行；允许清单只缩不涨 | `python tools/check_structure.py . --allow structure-allow.txt` |
+| `tools/check_repo.py` | 资产仓自洽：README 索引、技能 frontmatter、评测同名、版本一致 | `python tools/check_repo.py --check-tools` |
+| `tools/bootstrap.py` | 一键开工：把两个检查器、门禁骨架与 `AGENTS.md` 装进新项目 | `python tools/bootstrap.py <项目目录>` |
+| `tools/install_skills.py` | 技能安装器：装到 `~/.dsh/skills`，可 `--check` 比对漂移 | `python tools/install_skills.py --check` |
 
-DSH 的用户级技能目录是 `~/.dsh/skills/<name>/SKILL.md`（Windows 即 `C:\Users\<你>\.dsh\skills\`）。
+检查器输出三种结论：`PASS`（退出码 0）、`WARN`（只有中/低风险，退出码 0，交付前清零）、`FAIL`（退出码 1）。真误报用行内 `artifact-check: ignore`，整文件误报用 `artifact-check: off`，不要拿豁免绕规则。
 
-```powershell
-# 1) 克隆仓库
-git clone https://github.com/LapStdy/lap-skills-rules.git
-cd lap-skills-rules
+## 门禁骨架
 
-# 2) 安装/更新全部技能（零依赖，Python 3.11+）
-python tools/install_skills.py
+`templates/gate.py` 是项目门禁的起点：七类检查按依赖顺序串行跑，失败即停，必需项缺工具按 `FAIL`，可选项缺工具报 `SKIP` 并列出证据缺口。
 
-# 3) 核对安装副本与仓库是否一致
-python tools/install_skills.py --check
+```bash
+python scripts/gate.py            # 跑到第一条失败
+python scripts/gate.py --keep-going
+python scripts/gate.py --list
 ```
 
-- 只装某一个：`python tools/install_skills.py first-principles`
-- 换安装目录：`python tools/install_skills.py --dest <目录>`
-- 卸载：`python tools/install_skills.py --uninstall <名字>`
-- 装完确认六个目录都在：`~/.dsh/skills/first-principles/`、`function-spec/`、`function-attack/`、`perf-evidence/`、`memory-curation/`、`zcode-auto-workflow/`。DSH 下次会话即可按 `description` 自动触发，也可手动调用对应技能。
-- 手写复制也可以：把 `skills/<name>/` 整个目录复制到 `~/.dsh/skills/`；但更新时请用安装器，避免漏文件。
-
-> 仓库可见性以 GitHub Settings 为准：若为私有，新设备需先登录 GitHub，或改用 SSH：`git clone git@github.com:LapStdy/lap-skills-rules.git`。
-
-**更新**：`git pull` 后重跑 `python tools/install_skills.py`。**卸载**：删 `~/.dsh/skills/` 下对应目录即可。
-
-## 怎么下载
-
-- 只要文件：本页右上 **Code → Download ZIP**。
-- 换电脑后接着用：`git clone https://github.com/LapStdy/lap-skills-rules.git`（私有仓需要登录；也可用 SSH `git@github.com:LapStdy/lap-skills-rules.git`，新电脑先把公钥加到 GitHub）。
-- 只想要某一个技能：进 `skills/<名字>/` 复制整个目录到 `~/.dsh/skills/`。
+把 `tools/check_artifacts.py` 与 `tools/check_structure.py` 复制到项目 `scripts/`，再按项目实际删改 `CHECKS`；判据与假红处置见 `rules/gates.md`。
 
 ## 新项目开工（一键）
 
-对新项目说一句：
-
-> 按 https://github.com/LapStdy/lap-skills-rules 的开工说明，给这个项目装规矩。
-
-AI 会生成 `AGENTS.md`、装好检查器，并跑一次自检。也可以手动：
+对新项目说一句「按 https://github.com/LapStdy/lap-skills-rules 的开工说明，给这个项目装规矩」，或手动：
 
 ```bash
 python tools/bootstrap.py <项目目录>
 ```
 
-装完的效果：新项目一开会话就带着交付物硬规则，交付前自动跑检查。结构规范按 `rules/project-structure.md` 的 A/B profile 选，不默认建满目录。
+装完得到 `scripts/` 下三个文件：`check_artifacts.py`、`check_structure.py`、`gate.py`，以及带「交付物通道、改动范围、完成判据、账本」四段的 `AGENTS.md`。之后：
 
-## 依赖与降级
+1. 把项目目标、技术栈、首个里程碑写进 README；
+2. `python scripts/gate.py` 首次会红，按输出逐条补齐；
+3. 既有超限写进 `structure-allow.txt` 并在 `DEBT.md` 记账。
 
-- 技能、检查器与安装器都**零第三方运行时依赖**，只用 Python 标准库。
-- 可选工具缺失时技能会显式降级并写明少了什么证据：`hypothesis`、`mutmut`、`pytest-benchmark`、`py-spy`、`asv` 都不是必需。
-- 需要 Python 3.11+（本仓库在 3.14 上验证）。
+## 本仓库自检
+
+```bash
+python tools/check_repo.py --check-tools        # 自洽 + 三个工具一起跑
+python tools/check_artifacts.py --selftest      # 检查器自检
+python tools/check_structure.py --selftest      # 结构检查器自检
+python tools/install_skills.py --check          # 安装副本与仓库比对
+```
+
+`structure-allow.txt` 记录资产仓自身脚本的既有超限；每条都对应拆分工作，清单只缩不涨。
+
+## 安装技能
+
+用户级技能目录是 `~/.dsh/skills/<name>/SKILL.md`（Windows 即 `C:\Users\<你>\.dsh\skills\`）。
+
+```powershell
+git clone https://github.com/LapStdy/lap-skills-rules.git
+cd lap-skills-rules
+python tools/install_skills.py          # 装全部技能
+python tools/install_skills.py --check  # 只比对，不写盘
+python tools/install_skills.py first-principles   # 只装指定技能
+python tools/install_skills.py --uninstall <名字>
+```
+
+- 先改仓库，再装；顺序反过来会丢改动。
+- 安装副本只读：更新一律 `git pull` 后重跑安装器。
+- 装完重开一个会话，技能目录才会重新注入。
+- 手写复制也可以，但更新时用安装器，避免漏文件。
 
 ## 目录
 
 ```text
-rules/       # 规范全文：交付物通道、项目结构、技能规范
-tools/       # check_artifacts.py（检查器）+ bootstrap.py（一键开工）+ install_skills.py（技能安装）
-templates/   # 新项目用的 AGENTS.md 模板
-skills/      # 可安装的五款技能
-evals/       # 技能最小评测（当前含 first-principles 两个 case）
-docs/        # ADR 与仓库稳定文档
+rules/              # 规范全文（唯一真源）
+tools/              # 检查器、门禁骨架来源、一键开工、技能安装
+templates/          # 新项目模板：AGENTS.md、gate.py
+skills/<name>/      # 可安装技能（SKILL.md + references/scripts/templates）
+evals/<name>/       # 技能最小评测（可重跑）
+docs/               # ADR 与仓库稳定文档
+structure-allow.txt # 资产仓结构上限允许清单（只缩不涨）
 ```
+
+## 依赖与降级
+
+- 技能、检查器与安装器零第三方运行时依赖，只用 Python 标准库，需要 Python 3.11+。
+- 可选工具缺失时技能显式降级并写明少了什么证据：`hypothesis`、`mutmut`、`pytest-benchmark`、`py-spy`、`asv` 都不是必需。
+- `ruff`、`mypy`、`pytest`、`import-linter` 属项目栈；门禁里必需项缺工具按失败处理，可选项才允许跳过。
 
 ## 版本
 
-当前 `v0.5.0`；版本记录见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本见 [CHANGELOG.md](CHANGELOG.md)；本页不写版本号，版本只有一处真源。
 
 ## 一句话
 
-规矩管「写出来干不干净」，技能管「做出来对不对」。
+规矩管「写出来干不干净」，技能管「这类活怎么做才对」，工具管「做完没做完」。

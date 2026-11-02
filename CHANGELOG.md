@@ -1,5 +1,25 @@
 # 变更记录
 
+## v0.14.0 — 2026-11-02
+
+- 新增四条规范，来自长期项目全量门禁与值守的实测：
+  - `rules/gates.md`：完成由一条命令判定；七类检查按依赖顺序；合并前后按树判据决定门禁跑几次；假红判据（单例复跑 + 整包复跑全绿，判并行抢资源）。
+  - `rules/testing.md`：四条硬规则（假件注入、断言不变量、禁逐字节比对含时间产物、新行为必须有测试），加进程/端口/文件/时间/文档即契约。
+  - `rules/windows-process.md`：实测红线——Windows 上 `os.kill(pid, 0)` 的 `0` 是 `CTRL_C_EVENT`，会误杀目标并打断同一控制台的进程；测试进程内 `taskkill /T /F` 会连带结束调用者。给出内核句柄探测代码与排障判据。
+  - `rules/ledger.md`：TASKS、DEBT、交接账本的分工与字段；DEBT 已还即删、未还 ≤20 笔、每月复审。
+- 新增工具：
+  - `tools/check_structure.py`：AST 扫函数行数、参数个数、类行数、模块行数，带允许清单（`--allow`）与 `--selftest`。
+  - `tools/check_repo.py`：资产仓自洽（README 索引路径、技能 frontmatter 与目录名、评测同名、README 与 CHANGELOG 版本一致），`--check-tools` 一并跑三个检查。
+  - `templates/gate.py`：项目门禁骨架（七类检查、必需与可选、失败即停、固定报告行）。
+- `tools/bootstrap.py` 重写安装内容：两个检查器 + 门禁骨架 + 四段 `AGENTS.md`；`--check` 比对三类文件与三个章节的漂移。
+- `templates/AGENTS.md` 增「完成判据」与「账本」两段。
+- 新增技能 `skills/project-gate`（1.0.0）与评测 `evals/project-gate`（10 条机械判据）。
+- `skills/zcode-auto-workflow` 升 2.8.0：卡文必查由九项升**十项**（新增「用例不打掉宿主」）；复核明确「执行者自述不算证据，主控亲自串行跑全量门禁」；回执第 7 项定夺项合并前必须答复；门禁假红补「用例把宿主打掉」一类；`references/boundary-facts.md` 工程侧边界由三条升四条；评测判据由 15 条升 18 条。
+- `rules/project-structure.md`：机器检查一节改为三个检查器加门禁骨架；根文件按需项加 `structure-allow.txt`。
+- `rules/skills.md`：写作规则补两条——示例命令不得打掉宿主进程；引用规则只指过去、不复制正文。
+- `README.md` 重写：规矩、技能、工具三分，门禁骨架与新项目三步，自检命令，目录；版本号只留 CHANGELOG 一处。
+- 新增 `structure-allow.txt`：资产仓既有 11 项超限入清单（技能脚本与工具脚本），每条对应拆分工作，清单只缩不涨。
+
 ## v0.13.0 — 2026-11-02
 
 - `skills/zcode-auto-workflow` 升 2.7.0：派卡并发上限由 2 提到 **3**（`references/project-profile.md` 的「并发上限」、`SKILL.md` 输入缺省与「并发与变更预算」同口径，含子智能体）。理由：用户 2026-11-02 决定放宽到三张，额度窗口内可多推一条独立支线。
