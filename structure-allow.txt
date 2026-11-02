@@ -1,0 +1,17 @@
+# 结构上限允许清单（既有欠账，清单只缩不涨）
+#
+# 一行一条：模块写路径；函数/类写 `路径::限定名`。
+# 每条都对应拆分工作：技能脚本随各自技能重构、资产仓工具随下一版重构归还。
+# 新增条目必须先在 DEBT 或 CHANGELOG 里记账，并写归还期限。
+
+skills/function-attack/scripts/probe_inputs.py::main
+skills/function-spec/scripts/metrics.py
+skills/perf-evidence/scripts/bench_stats.py
+skills/perf-evidence/scripts/bench_stats.py::build_payload
+skills/perf-evidence/scripts/bench_stats.py::handle_compare
+skills/perf-evidence/scripts/bench_stats.py::build_parser
+skills/perf-evidence/scripts/diff_harness.py::build_parser
+skills/perf-evidence/scripts/diff_harness.py::main
+tools/check_artifacts.py
+tools/check_artifacts.py::scan_file
+tools/install_skills.py::main
