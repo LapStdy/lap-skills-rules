@@ -1,5 +1,12 @@
 # 变更记录
 
+## v0.15.0 — 2026-11-03
+
+- 技能正文结构升为十节：新增「前置条件」为第 2 节硬要求（插件、账号、目录、外部程序逐条给「要求 / 缺了怎么办」）；`rules/skills.md` 正文结构与检查清单同步。
+- 七个技能全部补「前置条件」一节：`first-principles` 0.2.0、`function-spec` 0.3.0、`function-attack` 0.3.0、`perf-evidence` 0.3.0、`project-gate` 1.1.0、`memory-curation` 1.1.0、`zcode-auto-workflow` 2.9.0。重点两条：`memory-curation` 明确依赖 DSH 记忆插件（缺插件只出建议、不执行写操作）；`zcode-auto-workflow` 写明 ZCode 桌面端、真源库、DSH 桌面控制、git、项目门禁命令、仓库外目录六项前置。
+- `tools/check_repo.py` 强制四个结构节（前置条件、何时用、完成自检、资源清单），缺节即 FAIL 并给改法。
+- `README.md` 新增「前置条件一览」表：一屏看完每个技能的硬前置与缺了会怎样。
+
 ## v0.14.1 — 2026-11-02
 
 - 新增 `LICENSE`（MIT，`Copyright (c) 2026 LapStdy`），仓库转为公开；README 加「许可证」一节，只放链接不复述条款。

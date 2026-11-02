@@ -2,13 +2,23 @@
 name: perf-evidence
 description: "性能取证与回归基线：复现→基线（≥5 次 median/IQR）→复杂度/热点→1–3 个假设→最小改动→正确性四件套→benchmark 前后对比→门禁建议。用于「这个函数慢」「怎么优化」「为什么卡（函数/接口级）」「复杂度多少」「加 benchmark 防回归」「profile 热点」「提速」。不负责已知 bug 根因（diagnosing-bugs）、PR 评审（code-review）、架构级性能（codebase-design）、该不该做（first-principles）；前端动效掉帧用 animation-performance。"
 metadata:
-  version: "0.2.1"
+  version: "0.3.0"
   phase: "2D"
 ---
 
 # 性能取证（perf-evidence）
 
 把「感觉慢 / 想优化」变成可复核的证据链：基线、复杂度、热点、最小改动、正确性证据、前后对比、回归门禁。没有数据不宣布提速；没有正确性证据不改热点。
+
+## 前置条件
+
+| 依赖 | 要求 | 缺了怎么办 |
+|---|---|---|
+| Python 3.11+ | `scripts/bench_stats.py`、`scripts/diff_harness.py` 要能跑 | 缺 Python 就手工统计，产物标「工具未用」 |
+| 可运行的被测代码 | 能在目标机器上重复执行，输入可固定 | 不能在目标机跑就写明「非目标机数据」并降置信 |
+| 可回退的基线 | git 仓库 + 可复现的基线提交 | 没有版本控制先用快照复制，否则无法回退 |
+| 稳定机器 | 关掉其他负载；能固定 CPU 频率更好 | 噪声大就增加重复次数，报 median 与 IQR 而不是单次数值 |
+| 可选工具 | `pytest-benchmark`、`py-spy`、`asv` | 缺失时用 `timeit` + `cProfile` 降级，写明少了什么证据 |
 
 ## 何时用、何时不用
 
@@ -136,7 +146,7 @@ metadata:
 | 没装 pytest-benchmark，做不了 | 降级 `perf_counter`/`bench_stats.py`，写明噪声更大、不能直接进 CI 门禁 |
 | 这是热点，必须优化 | 热点 ≠ 值得优化；看占比、调用频次与风险收益 |
 
-## 完成判据（自检）
+## 完成自检
 
 - [ ] 基线含 median/IQR/样本数/环境，命令可复现
 - [ ] 复杂度结论有规模曲线，不是只凭读代码
@@ -148,7 +158,7 @@ metadata:
 - [ ] 缺工具时写明「降级/未做」及少了什么证据
 - [ ] 未越界到 `diagnosing-bugs` / `code-review` / `codebase-design` / `brooks-sweep`
 
-## 资源
+## 资源清单
 
 - `references/profiling-playbook.md` — cProfile/py-spy 配方、火焰图、隐藏平方、优化手法、测量陷阱
 - `references/benchmark-baseline.md` — 实验设计、median/IQR/噪声地板、pytest-benchmark/asv、基线入库与 CI 门禁

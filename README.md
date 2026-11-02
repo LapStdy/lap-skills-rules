@@ -31,6 +31,20 @@
 
 路由：先判「该不该做 / 有没有更优解」用 `first-principles`；决定做之后，写代码按 `function-spec`，找未知缺陷按 `function-attack`，性能值不值得按 `perf-evidence`；要落实「完成」的判定用 `project-gate`，要按任务卡循环推进用 `zcode-auto-workflow`，整理记忆用 `memory-curation`。
 
+### 前置条件一览
+
+| 技能 | 硬前置 | 缺了会怎样 |
+|---|---|---|
+| `first-principles` | 无（纯 Markdown） | — |
+| `function-spec` | Python 3.11+（脚本 `metrics.py`）；目标文件可读 | 纯人工审，结论标低置信 |
+| `function-attack` | Python 3.11+、目标模块可导入；先确认函数无危险副作用 | 只能出静态攻击清单，缺执行证据 |
+| `perf-evidence` | Python 3.11+、能重复运行被测代码、有可回退基线 | 只能给推断级结论 |
+| `project-gate` | git 仓库、Python 3.11+、项目工具链（ruff/mypy/pytest 等）、`scripts/` 可写 | 必需项缺工具按失败，不静默跳过 |
+| `zcode-auto-workflow` | ZCode 桌面端已登录、真源库可读、DSH 桌面控制可用、git、项目门禁命令 | 缺 ZCode 改用 `subagent`；无门禁先接门禁 |
+| `memory-curation` | **DSH 记忆插件**（`memory_rules`/`memory_user`/`memory_note`/`memory_status` 可用）、记忆目录可写 | 只出分层建议，不执行写操作 |
+
+每个技能的完整前置表（含缺了怎么降级）在各 `SKILL.md` 的「前置条件」一节，由 `tools/check_repo.py` 强制存在。
+
 ## 工具（零第三方依赖，只用标准库）
 
 | 工具 | 作用 | 命令 |

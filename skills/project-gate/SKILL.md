@@ -2,7 +2,7 @@
 name: project-gate
 description: "给项目搭一条可机械验证的门禁：盘点现有检查→按依赖顺序选检查器→生成 scripts/gate.py→写进 AGENTS.md 与 README→造红验证→记账。用于「搭门禁」「加质量门禁」「一条命令验完」「交付怎么验证」「新项目开工」「接入 CI 前先本机跑通」。不负责派卡执行（zcode-auto-workflow）、不负责方案取舍（first-principles）、不负责单函数规范（function-spec）。"
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   phase: "foundation"
 ---
 
@@ -11,6 +11,16 @@ metadata:
 一句话：把「完成」从口头约定变成一条命令；先有门禁，再谈速度。
 
 默认产出：`scripts/gate.py` + 项目 `AGENTS.md` 的完成判据段 + 一次真实的造红验证与全绿输出。
+
+## 前置条件
+
+| 依赖 | 要求 | 缺了怎么办 |
+|---|---|---|
+| git 仓库 | 工作区可读、有提交（门禁结论要对应到提交） | 没有 git 也能接检查，但结论无法锁到版本，写明「无版本锚」 |
+| Python 3.11+ | 项目 `scripts/` 可写（装两个检查器与门禁骨架） | 只读环境只能产出方案，不能落地 |
+| 项目工具链 | `ruff`、`mypy`、`pytest`、`import-linter` 按项目选装 | 必需项缺工具按 FAIL；可选项缺工具 SKIP 并列出证据缺口 |
+| 写权限 | 可改项目 `AGENTS.md` 与 README | 无写权限时只给补丁内容，由用户贴 |
+| 时间预算 | 全量门禁一次能跑完；超过 5 分钟要拆快检与全量 | 跑不完就先接最小三条（格式、测试、交付物） |
 
 ## 何时用 / 何时不用
 

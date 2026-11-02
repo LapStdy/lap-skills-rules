@@ -34,6 +34,7 @@ PATH_PREFIXES = ("rules/", "tools/", "templates/", "skills/", "evals/", "docs/",
 VERSION_RE = re.compile(r"\bv(\d+\.\d+\.\d+)\b")
 BACKTICK_RE = re.compile(r"`([^`\s]+)`")
 DESCRIPTION_LIMIT = 500
+REQUIRED_SECTIONS = ("## 前置条件", "## 何时用", "## 完成自检", "## 资源清单")
 
 
 @dataclass(frozen=True)
@@ -114,6 +115,16 @@ def check_skills(root: Path, readme: str) -> list[Drift]:
             )
         if not meta.get("version"):
             drifts.append(Drift(f"skills/{name}/SKILL.md", "缺 metadata.version", "补 metadata.version"))
+        text = skill_file.read_text(encoding="utf-8", errors="replace")
+        for section in REQUIRED_SECTIONS:
+            if section not in text:
+                drifts.append(
+                    Drift(
+                        f"skills/{name}/SKILL.md",
+                        f"缺「{section.lstrip('# ')}」一节",
+                        "按 rules/skills.md 的正文结构补齐；前置条件写清工具、账号、目录、外部程序与缺了怎么办",
+                    )
+                )
         if f"skills/{name}" not in readme and f"`{name}`" not in readme:
             drifts.append(
                 Drift(f"skills/{name}", "README 没有该技能的索引", "在技能表里加一行")
